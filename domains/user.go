@@ -24,6 +24,7 @@ func GetUserByEmail(db *gorm.DB, email string) (User, error) {
 
 	return user, nil
 }
+
 func GetUserById(db *gorm.DB, id float64) (User, error) {
 	var user User
 
