@@ -24,3 +24,12 @@ func GetUserByEmail(db *gorm.DB, email string) (User, error) {
 
 	return user, nil
 }
+func GetUserById(db *gorm.DB, id float64) (User, error) {
+	var user User
+
+	if result := db.Where("id = ?", id).First(&user); result.Error != nil {
+		return User{}, result.Error
+	}
+
+	return user, nil
+}

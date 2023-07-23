@@ -19,7 +19,7 @@ func main() {
 	} else {
 		fmt.Println("Successfully connected")
 	}
-	db.AutoMigrate(&domains.User{})
+	db.AutoMigrate(&domains.User{}, &domains.Author{}, &domains.Post{})
 	mux := http.NewServeMux()
 	c := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"}, // your app's origin
@@ -29,6 +29,8 @@ func main() {
 	})
 	mux.Handle("/register", handler.Register(db))
 	mux.Handle("/login", handler.Login(db))
+	mux.Handle("/post", handler.CreatePost(db))
+	mux.Handle("/posts", handler.GetPosts(db))
 	corsHandler := c.Handler(mux)
 
 	log.Fatal(http.ListenAndServe(":8000", corsHandler))

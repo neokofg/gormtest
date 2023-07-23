@@ -1,6 +1,8 @@
 package domains
 
 type Author struct {
-	ID   uint `gorm:"primaryKey"`
-	User User `gorm:"embedded"`
+	ID     uint `gorm:"primaryKey"`
+	UserID uint
+	User   User `gorm:"constraint:OnDelete:CASCADE"`
+	Posts  []Post
 }
